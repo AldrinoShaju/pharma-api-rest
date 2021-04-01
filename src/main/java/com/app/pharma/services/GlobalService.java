@@ -11,6 +11,7 @@ import com.app.pharma.repository.OrderRepository;
 import com.app.pharma.repository.ProductRepository;
 import com.app.pharma.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,8 @@ public class GlobalService extends EntitiyHawk {
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
         if(auth.equalsIgnoreCase("ADMIN")){
-            return genericSuccess(userRepository.findByAuth("CUSTOMER"));
+            return genericResponse(userRepository.findByAuth("CUSTOMER"));
+            //return new ResponseEntity<>(userRepository.findByAuth("CUSTOMER"), HttpStatus.OK);
 
         }
         return  genericError("You are not Authorized to view this information");
