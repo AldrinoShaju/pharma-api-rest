@@ -12,6 +12,8 @@ class Register extends Component {
       distributorName: "",
       rePassword: "",
       address: "",
+      email:"",
+      phone:"",
       passwordValid: false
     };
   }
@@ -27,7 +29,8 @@ class Register extends Component {
       password:data.password,
       address:data.address,
       dist: data.distributorName,
-      email:"email"
+      email:data.email,
+      phone:data.phone,
     };
     axios.post("http://localhost:8080/register", payload)
         .then(response => {
@@ -58,6 +61,7 @@ class Register extends Component {
               </Form.Label>
               <Col sm={5}>
                 <Form.Control
+                  required
                   type="text"
                   placeholder="User Name"
                   value={this.state.username}
@@ -71,6 +75,7 @@ class Register extends Component {
               </Form.Label>
               <Col sm={5}>
                 <Form.Control
+                  required
                   type="password"
                   placeholder="Password"
                   value={this.state.password}
@@ -84,6 +89,7 @@ class Register extends Component {
               </Form.Label>
               <Col sm={5}>
                 <Form.Control
+                  required
                   type="password"
                   placeholder="Re-Password"
                   isInvalid={this.state.passwordValid}
@@ -100,6 +106,7 @@ class Register extends Component {
               </Form.Label>
               <Col sm={5}>
                 <Form.Control
+                  required
                   type="text"
                   placeholder="Distributor Name"
                   value={this.state.distributorName}
@@ -115,10 +122,39 @@ class Register extends Component {
               </Form.Label>
               <Col sm={5}>
                 <Form.Control
+                  required
                   type="text"
                   placeholder="Address"
                   value={this.state.address}
                   onChange={(e) => this.setState({ address: e.target.value })}
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} controlId="formBasicEmail">
+              <Form.Label column sm={4}>
+                Email
+              </Form.Label>
+              <Col sm={5}>
+                <Form.Control
+                  required
+                  type="email"
+                  placeholder="Email"
+                  value={this.state.email}
+                  onChange={(e) => this.setState({ email: e.target.value })}
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} controlId="formBasicEmail">
+              <Form.Label column sm={4}>
+                Phone
+              </Form.Label>
+              <Col sm={5}>
+                <Form.Control
+                  required
+                  type="tel"
+                  placeholder="Phone"
+                  value={this.state.phone}
+                  onChange={(e) => this.setState({ phone: e.target.value })}
                 />
               </Col>
             </Form.Group>

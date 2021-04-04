@@ -21,7 +21,10 @@ export class Delete extends Component {
     //console.log(this.props.token);
     if(this.props.title==("Delete Customer")){
     UserService.getDeleteCust(this.props.token, id).then((response) => {
-      //console.log(response.data);
+      console.log(response.data);
+      if(response.data.status===false){
+        alert(`Invalid ID. Check Again`);
+      }
     });
     }
     else if(this.props.title==("Delete Order")){
@@ -60,7 +63,8 @@ export class Delete extends Component {
             <Form.Group controlId="formBasicEmail">
               <Form.Control
                 type="text"
-                placeholder="Enter CustomerID"
+                required
+                placeholder="Enter ID"
                 value={this.state.customerID}
                 onChange={(e) => this.setState({ customerID: e.target.value })}
               />

@@ -1,7 +1,7 @@
 import { Component } from "react";
-import { Card, Form, Col, Row, Button } from "react-bootstrap";
+import { Card, Form, Col, Row, Button, DropdownButton, Dropdown } from "react-bootstrap";
 import { connect } from "react-redux";
-
+// import DropdownButton from 'react-bootstrap/DropdownButton'
 import { isCustomer, isDistributor, isLogin, register } from "../action";
 import axios from 'axios';
 import UserService from './UserService';
@@ -9,31 +9,72 @@ export class OrderPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productCode: "1234",
+      productCode: "Select a Product",
       productName: "",
       minQty: "",
       tax: "",
       discount: "",
-      orderQty: ""
+      orderQty: "",
+      amount:"",
+      perItem:"",
+      product:[]
     };
+    // this.updateOrder = this.updateOrder.bind(this);
+    // this.getProductDetails = this.getProductDetails(this);
+    
   }
+
+  componentDidMount(){
+    axios.get("http://localhost:8080/api/getProducts")
+        .then(response => {
+          if(response.data.status===true){
+            //alert("user data sent");
+            console.log(response.data);
+            this.setState({ product:response.data.data});
+            
+          }
+      });
+  }
+
+  getProductDetails = (name)=>{
+    this.setState({ 
+      productCode:name.productCode,
+      productName:name.productName,
+      minQty:name.minQuantity,
+      perItem:name.perItem
+    }); 
+  }
+
   updateOrder = (data) => {
-    console.log(data.productName);
-    console.log(data.productCode);
-    console.log(data.minQty);
-    console.log(data.tax);
-    console.log(data.discount);
-    console.log(data.orderQty);
-    console.log(this.props.token);
-    const payload ={
-      productName:data.productName,
-      orderQueue:data.orderQty
-    };
-    UserService.postOrder(this.props.token, payload).then((response) => {
-      console.log(response.data);
-    });
+    // console.log(data.productName);
+    // console.log(data.productCode);
+    // console.log(data.minQty);
+    // console.log(data.tax);
+    // console.log(data.discount);
+    // console.log(data.orderQty);
+    // console.log(this.props.token);
+    if(data.orderQty!=0){
+      if(data.minQty<=data.orderQty){
+        const payload ={
+          productName:data.productName,
+          orderQueue:data.orderQty
+        };
+        UserService.postOrder(this.props.token, payload).then((response) => {
+          console.log(response.data);
+        });
+      }else{
+        alert(`Order quantity is not above min quantity`);
+      }
+      
+    }
   };
   render() {
+  const productList = this.state.product.map((pro) => {
+    return (
+      <Dropdown.Item as="button" onClick={()=>{this.getProductDetails(pro)}}>{pro.productName}</Dropdown.Item>
+    );
+  });
+  
     return (
       <Card style={{ width: "90%", margin: "auto", marginTop: "1rem" }}>
         <Card.Title style={{ padding: "1rem" }}>Place an Order</Card.Title>
@@ -49,7 +90,9 @@ export class OrderPage extends Component {
                 Product Code
               </Form.Label>
               <Col sm={5}>
+              
                 <Form.Control
+                
                   type="text"
                   disabled
                   placeholder="Product Code"
@@ -64,18 +107,24 @@ export class OrderPage extends Component {
               <Form.Label column sm={4}>
                 Product Name
               </Form.Label>
-              <Col sm={5}>
+              <Col sm={2}>
+              <DropdownButton id="dropdown-item-button" title="Select Product">
+                {productList}
+              </DropdownButton>
+              </Col>
+              <Col sm={3}>
                 <Form.Control
                   type="text"
                   placeholder="Product Name"
+                  disabled
                   value={this.state.productName}
                   onChange={(e) =>
                     this.setState({ productName: e.target.value })
                   }
                 />
-              </Col>
+                </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicEmail">
+            {/* <Form.Group as={Row} controlId="formBasicEmail">
               <Form.Label column sm={4}>
                 Tax
               </Form.Label>
@@ -87,7 +136,7 @@ export class OrderPage extends Component {
                   onChange={(e) => this.setState({ tax: e.target.value })}
                 />
               </Col>
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group as={Row} controlId="formBasicquatity">
               <Form.Label column sm={4}>
                 Min Qty to Order
@@ -95,6 +144,7 @@ export class OrderPage extends Component {
               <Col sm={5}>
                 <Form.Control
                   type="text"
+                  disabled
                   placeholder="Min Qty to Order"
                   value={this.state.minQty}
                   onChange={(e) => this.setState({ minQty: e.target.value })}
@@ -110,11 +160,11 @@ export class OrderPage extends Component {
                   type="text"
                   placeholder="Ordering Quantity"
                   value={this.state.orderQty}
-                  onChange={(e) => this.setState({ orderQty: e.target.value })}
+                  onChange={(e) => this.setState({ orderQty: e.target.value, amount: (e.target.value)*this.state.perItem})}
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicEmail">
+            {/* <Form.Group as={Row} controlId="formBasicEmail">
               <Form.Label column sm={4}>
                 Discount
               </Form.Label>
@@ -124,6 +174,20 @@ export class OrderPage extends Component {
                   placeholder="Discount"
                   value={this.state.discount}
                   onChange={(e) => this.setState({ discount: e.target.value })}
+                />
+              </Col>
+            </Form.Group> */}
+            <Form.Group as={Row} controlId="formBasicEmail">
+              <Form.Label column sm={4}>
+                Amount in Rs
+              </Form.Label>
+              <Col sm={5}>
+                <Form.Control
+                  type="text"
+                  disabled
+                  placeholder="Amount"
+                  value={this.state.amount}
+                  onChange={(e) => this.setState({ amount: e.target.value })}
                 />
               </Col>
             </Form.Group>

@@ -20,9 +20,11 @@ export class EditOrder extends Component {
     UserService.getOrderDetails(this.props.token, this.props.customerID).then((response) => {
         console.log(response.data);
         this.setState({ 
+          productCode: response.data.data.productCode,
           productName: response.data.data.productName,
           minQty:response.data.data.minQuantity,
-          orderQty:response.data.data.orderQueue
+          orderQty:response.data.data.orderQueue,
+          discount:response.data.data.netCost
         })
     });
     //console.log(this.props);
@@ -34,7 +36,15 @@ export class EditOrder extends Component {
     console.log(data.tax);
     console.log(data.discount);
     console.log(data.orderQty);
-    UserService.postOrderUpdate(this.props.token, this.props.customerID, data.productName).then((response) => {
+
+    const payload={
+      productName: data.productName,
+      minQuantity: data.minQty,
+      orderQueue: data.orderQty,
+      netCost: data.discount
+    }
+
+    UserService.postOrderUpdate(this.props.token, this.props.customerID,payload).then((response) => {
       console.log(response.data);
   });
   };
@@ -80,7 +90,7 @@ export class EditOrder extends Component {
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicEmail">
+            {/* <Form.Group as={Row} controlId="formBasicEmail">
               <Form.Label column sm={4}>
                 Tax
               </Form.Label>
@@ -92,7 +102,7 @@ export class EditOrder extends Component {
                   onChange={(e) => this.setState({ tax: e.target.value })}
                 />
               </Col>
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group as={Row} controlId="formBasicquatity">
               <Form.Label column sm={4}>
                 Min Qty to Order
@@ -113,7 +123,7 @@ export class EditOrder extends Component {
               <Col sm={5}>
                 <Form.Control
                   type="text"
-                  placeholder="Ordering Quantity"
+                  placeholder="Order Queue"
                   value={this.state.orderQty}
                   onChange={(e) => this.setState({ orderQty: e.target.value })}
                 />
@@ -121,12 +131,12 @@ export class EditOrder extends Component {
             </Form.Group>
             <Form.Group as={Row} controlId="formBasicEmail">
               <Form.Label column sm={4}>
-                Discount
+                NetCost
               </Form.Label>
               <Col sm={5}>
                 <Form.Control
                   type="text"
-                  placeholder="Discount"
+                  placeholder="NetCost"
                   value={this.state.discount}
                   onChange={(e) => this.setState({ discount: e.target.value })}
                 />

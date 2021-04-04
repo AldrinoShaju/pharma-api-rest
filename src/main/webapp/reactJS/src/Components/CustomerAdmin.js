@@ -80,7 +80,7 @@ export class CustomerAdmin extends Component {
                 <th>Id</th>
                 <th>Username</th>
                 <th>Password</th>
-                <th>Adress</th>
+                <th>Address</th>
                 <th>phone</th>
                 <th>Email</th>
               </tr>

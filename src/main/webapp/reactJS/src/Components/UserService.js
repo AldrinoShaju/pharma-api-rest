@@ -60,16 +60,16 @@ class UserService {
         return axios.get(GET_ORDER_REST_API_URL+id,option);
     }
 
-    postOrderUpdate(token, id, name){
+    postOrderUpdate(token, id, payload){
         const option = {
             //productName: name,
             headers: {'Authorization': 'Bearer '+token}
         };
 
-        const payload ={
-            productName : name,
+        // const payload ={
+        //     productName : name,
             
-          };
+        //   };
 
         console.log(token+" uporder")
         return axios.post(POST_ORDER_UPDATE_REST_API_URL+id,payload, option);
