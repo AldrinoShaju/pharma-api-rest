@@ -186,6 +186,7 @@ public class GlobalService extends EntitiyHawk {
             plOrder.setNetCost(pOrder.getOrderQueue());
             plOrder.setMinQuantity(pro.getMinQuantity());
             plOrder.setAmount(plOrder.getNetCost()*pro.getPerItem());
+            plOrder.setProductCode(pOrder.getProductCode());
             //plOrder.setOrderId(5);
             orderRepository.save(plOrder);
 
