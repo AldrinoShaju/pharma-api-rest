@@ -53,10 +53,11 @@ public class EntitiyHawk {
         return ResponseEntity.ok(map);
     }
 
-    public ResponseEntity genericResponse(boolean status, Object data) {
+    public ResponseEntity genericResponse(boolean status, Object data, String auth) {
         Map map = new HashMap();
         map.put("status", status);
         map.put("data", data);
+        map.put("auth", auth);
         return ResponseEntity.ok(map);
     }
 

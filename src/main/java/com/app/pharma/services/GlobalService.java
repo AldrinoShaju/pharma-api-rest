@@ -84,13 +84,13 @@ public class GlobalService extends EntitiyHawk {
 //
 
     public ResponseEntity getProducts(HttpServletRequest request){
-        String[] token = (request.getHeader("authorization")).split(" ");
-        String auth = jwtUtils.extractSubject(token[1]);
-        if(auth.equalsIgnoreCase("ADMIN")){
+//        String[] token = (request.getHeader("authorization")).split(" ");
+//        String auth = jwtUtils.extractSubject(token[1]);
+//        if(auth.equalsIgnoreCase("ADMIN")){
 
             return genericSuccess(productRepository.findAll());
-        }
-        return  genericError("You are not Authorized to delete this information");
+//        }
+//        return  genericError("You are not Authorized to delete this information");
 
     }
     //
@@ -110,17 +110,20 @@ public class GlobalService extends EntitiyHawk {
 //
 
     public ResponseEntity updateOrder(int orderID, HttpServletRequest request, UpdateOrderDto orderUpdate){
-//        String[] token = (request.getHeader("authorization")).split(" ");
-//        String auth = jwtUtils.extractSubject(token[1]);
-//        //System.out.println(auth);
-//        if(auth.equalsIgnoreCase("ADMIN")){
+        System.out.println(request);
+        String[] token = (request.getHeader("authorization")).split(" ");
+        String auth = jwtUtils.extractSubject(token[1]);
+
+        if(auth.equalsIgnoreCase("ADMIN")){
 
             Orders update = orderRepository.findByOrderId(orderID);
             System.out.println(update.toString());
             update.setProductName(orderUpdate.getProductName());
             System.out.println(update.toString());
             orderRepository.save(update);
-//        }
+
+            return genericSuccess("Order Updated");
+        }
         return  genericError("You are not Authorized to update this information");
 
     }

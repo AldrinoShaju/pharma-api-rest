@@ -73,6 +73,7 @@ public class GlobalController extends EntitiyHawk {
 //
     @PostMapping("/updateOrder/{orderID}")
     public ResponseEntity updateOrder(@PathVariable("orderID") int orderID, HttpServletRequest request, @RequestBody UpdateOrderDto orderUpdate){
+        System.out.println(orderID+", "+request+", "+orderUpdate);
         return globalService.updateOrder(orderID, request, orderUpdate);
     }
 //

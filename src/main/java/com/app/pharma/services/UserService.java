@@ -63,7 +63,7 @@ public class UserService extends EntitiyHawk implements UserDetailsService {
         }
         else{
             String token = jwtUtils.CreateJWTToken(search);
-            return genericSuccess(token);
+            return genericResponse(true, token, search.getAuth());
         }
 
 

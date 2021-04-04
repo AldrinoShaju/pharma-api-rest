@@ -14,8 +14,8 @@ CREATE TABLE product (
 
 INSERT INTO product (product_code, product_name, min_quantity, cost_per_item) VALUES
   ('715347', 'ADCO-ABACAVIR 300MG TAB', '5','1105.44'),
-  ('789771', ' AZOMID 250MG TAB', '2','168.80'),
-  ('898538', ' ZIAGEN 100MG/5ML SYR', '2','415.55');
+  ('789771', 'AZOMID 250MG TAB', '2','168.80'),
+  ('898538', 'ZIAGEN 100MG/5ML SYR', '2','415.55');
 
 
 CREATE TABLE users (

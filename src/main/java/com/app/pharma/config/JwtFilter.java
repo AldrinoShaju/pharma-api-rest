@@ -66,7 +66,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
         String authorizationHeader = httpServletRequest.getHeader("Authorization");
-
+//        System.out.println(authorizationHeader);
         String token = null;
         String userName = null;
 
@@ -74,8 +74,10 @@ public class JwtFilter extends OncePerRequestFilter {
             token = authorizationHeader.substring(7);
             try{
                 userName = jwtUtil.extractUsername(token);
+//                System.out.println(userName);
             }catch (Exception e){
                 userName = null;
+//                System.out.println(e);
             }
 
             //System.out.println("Username: "+userName);
@@ -86,7 +88,7 @@ public class JwtFilter extends OncePerRequestFilter {
             UserDetails userDetails = service.loadUserByUsername(userName);
             System.out.println(userDetails);
             if (jwtUtil.validateToken(token, userDetails)) {
-                //System.out.println("Token Validated");
+//                System.out.println("Token Validated");
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
@@ -97,7 +99,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if(userName==null){
             System.out.println("User is null");
         }
-        System.out.println(httpServletResponse.toString());
+        //System.out.println(httpServletResponse.toString());
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }
