@@ -10,6 +10,8 @@ public interface ProductRepository extends MongoRepository<Product,String> {
 
     Product findByProductName(String name);
 
+    Product findByProductCode(String id);
+
 }
 
 //import com.app.pharma.model.Product;

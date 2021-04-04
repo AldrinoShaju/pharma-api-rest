@@ -10,6 +10,10 @@ public class UpdateOrderDto {
 
     private int orderQueue;
 
+    private int minQuantity;
+
+    private int netCost;
+
 
     public Integer getOrderId() {
         return orderId;
@@ -33,6 +37,22 @@ public class UpdateOrderDto {
 
     public void setOrderQueue(int orderQueue) {
         this.orderQueue = orderQueue;
+    }
+
+    public int getMinQuantity() {
+        return minQuantity;
+    }
+
+    public void setMinQuantity(int minQuantity) {
+        this.minQuantity = minQuantity;
+    }
+
+    public int getNetCost() {
+        return netCost;
+    }
+
+    public void setNetCost(int netCost) {
+        this.netCost = netCost;
     }
 }
 

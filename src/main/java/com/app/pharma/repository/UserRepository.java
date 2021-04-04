@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface UserRepository extends MongoRepository<Users,String> {
 
+    @Override
+    boolean existsById(String id);
+
     Users findByUserName(String name);
     Users findByEmail(String email);
     List<Users> findByAuth(String auth);

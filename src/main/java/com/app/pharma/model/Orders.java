@@ -11,6 +11,8 @@ public class Orders implements Serializable {
     @Id
     private String orderId;
 
+    private String productCode;
+
     private String productName;
 
     private int minQuantity;
@@ -25,8 +27,9 @@ public class Orders implements Serializable {
 
     }
 
-    public Orders(String orderId, String productName, int minQuantity, int orderQueue, double netCost, double amount) {
+    public Orders(String orderId, String productCode, String productName, int minQuantity, int orderQueue, double netCost, double amount) {
         this.orderId = orderId;
+        this.productCode = productCode;
         this.productName = productName;
         this.minQuantity = minQuantity;
         this.orderQueue = orderQueue;
@@ -34,7 +37,8 @@ public class Orders implements Serializable {
         this.amount = amount;
     }
 
-    public Orders(String productName, int minQuantity, int orderQueue, double netCost, double amount) {
+    public Orders(String productCode, String productName, int minQuantity, int orderQueue, double netCost, double amount) {
+        this.productCode = productCode;
         this.productName = productName;
         this.minQuantity = minQuantity;
         this.orderQueue = orderQueue;
@@ -89,6 +93,16 @@ public class Orders implements Serializable {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+
 
     @Override
     public int hashCode() {

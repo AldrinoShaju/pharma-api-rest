@@ -67,17 +67,14 @@ public class GlobalService extends EntitiyHawk {
     public ResponseEntity deleteCustomer(String custID, HttpServletRequest request){
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
-        if(auth.equalsIgnoreCase("ADMIN")){
-            try{
-                userRepository.deleteById(custID);
-            }
-            catch (Exception e){
-                return genericError("Customer ID is Invalid");
-            }
+        if(auth.equalsIgnoreCase("ADMIN") && userRepository.existsById(custID)){
+
+            userRepository.deleteById(custID);
 
             return genericSuccess("Customer Deleted");
         }
-        return  genericError("You are not Authorized to delete this information");
+
+        return  genericError("You are not Authorized to delete this information or the ID is invalid");
 
     }
     //
@@ -117,9 +114,14 @@ public class GlobalService extends EntitiyHawk {
         if(auth.equalsIgnoreCase("ADMIN")){
 
             Orders update = orderRepository.findByOrderId(orderID);
-            System.out.println(update.toString());
+            Product update2 = productRepository.findByProductCode(update.getProductCode());
+            //System.out.println(update.toString());
             update.setProductName(orderUpdate.getProductName());
-            System.out.println(update.toString());
+            update.setOrderQueue(orderUpdate.getOrderQueue());
+            update.setMinQuantity(orderUpdate.getMinQuantity());
+            update.setNetCost(orderUpdate.getNetCost());
+            update.setAmount(orderUpdate.getNetCost()*update2.getPerItem());
+            //System.out.println(update.toString());
             orderRepository.save(update);
 
             return genericSuccess("Order Updated");
@@ -161,11 +163,11 @@ public class GlobalService extends EntitiyHawk {
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
         if(auth.equalsIgnoreCase("DIST")){
-            //orderRepository.deleteById(orderID);
+            orderRepository.deleteById(orderID);
             return genericSuccess("Order is Distributed");
 
         }
-        return  genericError("You are not Authorized to delete this information");
+        return  genericError("You are not Authorized to set Distributed for this order");
 
     }
 
