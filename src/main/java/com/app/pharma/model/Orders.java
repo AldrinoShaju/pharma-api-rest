@@ -1,45 +1,31 @@
 package com.app.pharma.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 
-/**
- *
- * @author 1460344
- */
-@Entity
-@Table(name = "orders")
-@NamedQueries({
-        @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o")})
+@Document(collection = "Orders")
 public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "order_id")
-    private Integer orderId;
-    @Size(max = 45)
-    @Column(name = "product_name")
-    private String productName;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    private String orderId;
 
-    @Column(name = "min_quantity")
+    private String productName;
+
     private int minQuantity;
 
-    @Column(name = "order_queue")
     private int orderQueue;
-    @Column(name = "netcost")
-    private int netCost;
-    @Column(name = "amount")
+
+    private double netCost;
+
     private double amount;
 
     public Orders() {
 
     }
 
-    public Orders(Integer orderId, @Size(max = 45) String productName, @Size(max = 45) int minQuantity, @Size(max = 45) int orderQueue, int netCost, double amount) {
+    public Orders(String orderId, String productName, int minQuantity, int orderQueue, double netCost, double amount) {
         this.orderId = orderId;
         this.productName = productName;
         this.minQuantity = minQuantity;
@@ -48,7 +34,7 @@ public class Orders implements Serializable {
         this.amount = amount;
     }
 
-    public Orders(@Size(max = 45) String productName, @Size(max = 45) int minQuantity, @Size(max = 45) int orderQueue, int netCost, double amount) {
+    public Orders(String productName, int minQuantity, int orderQueue, double netCost, double amount) {
         this.productName = productName;
         this.minQuantity = minQuantity;
         this.orderQueue = orderQueue;
@@ -56,11 +42,11 @@ public class Orders implements Serializable {
         this.amount = amount;
     }
 
-    public Integer getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -88,7 +74,7 @@ public class Orders implements Serializable {
         this.orderQueue = orderQueue;
     }
 
-    public int getNetCost() {
+    public double getNetCost() {
         return netCost;
     }
 
@@ -136,3 +122,4 @@ public class Orders implements Serializable {
                 '}';
     }
 }
+

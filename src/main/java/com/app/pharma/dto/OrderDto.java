@@ -1,6 +1,6 @@
 package com.app.pharma.dto;
 
-import javax.persistence.*;
+
 import javax.validation.constraints.Size;
 
 public class OrderDto {

@@ -31,7 +31,7 @@ class LoginState extends Component {
       };
       axios.post("http://localhost:8080/login", user)
         .then(response => {
-        if(response.data.status===true){
+        if(response.data.status===true && response.data.auth==="ADMIN"){
           //alert("user data sent");
           console.log(response.data);
           this.props.isAdminLogin(response.data.data);
@@ -45,7 +45,7 @@ class LoginState extends Component {
       }; 
       axios.post("http://localhost:8080/login", user)
         .then(response => {
-          if(response.data.status===true){
+          if(response.data.status===true && response.data.auth==="DIST"){
             //alert("user data sent");
             console.log(response.data);
             //this.setState({ auth: response.data.auth, token:response.data.data });
@@ -61,7 +61,7 @@ class LoginState extends Component {
       }; 
       axios.post("http://localhost:8080/login", user)
         .then(response => {
-          if(response.data.status===true){
+          if(response.data.status===true && response.data.auth==="CUSTOMER"){
             //alert("user data sent");
             console.log(response.data);
             //this.setState({ auth: response.data.auth, token:response.data.data });

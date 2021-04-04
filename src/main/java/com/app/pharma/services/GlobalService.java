@@ -64,7 +64,7 @@ public class GlobalService extends EntitiyHawk {
     }
 
 
-    public ResponseEntity deleteCustomer(int custID, HttpServletRequest request){
+    public ResponseEntity deleteCustomer(String custID, HttpServletRequest request){
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
         if(auth.equalsIgnoreCase("ADMIN")){
@@ -109,7 +109,7 @@ public class GlobalService extends EntitiyHawk {
     //
 //
 
-    public ResponseEntity updateOrder(int orderID, HttpServletRequest request, UpdateOrderDto orderUpdate){
+    public ResponseEntity updateOrder(String orderID, HttpServletRequest request, UpdateOrderDto orderUpdate){
         System.out.println(request);
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
@@ -130,7 +130,7 @@ public class GlobalService extends EntitiyHawk {
     //
 //
 
-    public ResponseEntity getOrder(int orderID, HttpServletRequest request){
+    public ResponseEntity getOrder(String orderID, HttpServletRequest request){
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
         if(auth.equalsIgnoreCase("ADMIN")){
@@ -144,7 +144,7 @@ public class GlobalService extends EntitiyHawk {
     //
 //
 
-    public ResponseEntity deleteOrder(int orderID, HttpServletRequest request){
+    public ResponseEntity deleteOrder(String orderID, HttpServletRequest request){
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
         if(auth.equalsIgnoreCase("ADMIN")){
@@ -157,7 +157,7 @@ public class GlobalService extends EntitiyHawk {
     }
 
 
-    public ResponseEntity distriOrder(int orderID, HttpServletRequest request){
+    public ResponseEntity distriOrder(String orderID, HttpServletRequest request){
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
         if(auth.equalsIgnoreCase("DIST")){

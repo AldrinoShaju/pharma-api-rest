@@ -59,7 +59,7 @@ export class OrderAdmin extends Component {
       return (
         <tr key={item.orderId}>
           <td>{item.orderId}</td>
-          <td>{item.productCode}</td>
+          <td>{item.orderId}</td>
           <td>{item.productName}</td>
           <td>{item.minQuantity}</td>
           <td>{item.orderQueue}</td>

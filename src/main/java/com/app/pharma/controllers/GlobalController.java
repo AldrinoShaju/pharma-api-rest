@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
+//import javax.transaction.Transactional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -51,7 +51,7 @@ public class GlobalController extends EntitiyHawk {
     }
 
     @GetMapping("/deleteCustomer/{custID}")
-    public ResponseEntity deleteCustomer(@PathVariable("custID") int custID, HttpServletRequest request){
+    public ResponseEntity deleteCustomer(@PathVariable("custID") String custID, HttpServletRequest request){
         return globalService.deleteCustomer(custID, request);
 
     }
@@ -72,27 +72,27 @@ public class GlobalController extends EntitiyHawk {
 //
 //
     @PostMapping("/updateOrder/{orderID}")
-    public ResponseEntity updateOrder(@PathVariable("orderID") int orderID, HttpServletRequest request, @RequestBody UpdateOrderDto orderUpdate){
+    public ResponseEntity updateOrder(@PathVariable("orderID") String orderID, HttpServletRequest request, @RequestBody UpdateOrderDto orderUpdate){
         System.out.println(orderID+", "+request+", "+orderUpdate);
         return globalService.updateOrder(orderID, request, orderUpdate);
     }
 //
 //
     @GetMapping("/getOrder/{orderID}")
-    public ResponseEntity getOrder(@PathVariable("orderID") int orderID, HttpServletRequest request){
+    public ResponseEntity getOrder(@PathVariable("orderID") String orderID, HttpServletRequest request){
         return globalService.getOrder(orderID, request);
 
     }
 //
 //
     @GetMapping("/deleteOrder/{orderID}")
-    public ResponseEntity deleteOrder(@PathVariable("orderID") int orderID, HttpServletRequest request){
+    public ResponseEntity deleteOrder(@PathVariable("orderID") String orderID, HttpServletRequest request){
         return globalService.deleteOrder(orderID, request);
 
     }
 
     @GetMapping("/distriOrder/{orderID}")
-    public ResponseEntity distriOrder(@PathVariable("orderID") int orderID, HttpServletRequest request){
+    public ResponseEntity distriOrder(@PathVariable("orderID") String orderID, HttpServletRequest request){
         return globalService.distriOrder(orderID, request);
 
     }
