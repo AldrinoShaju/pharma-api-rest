@@ -17,7 +17,8 @@ export class OrderPage extends Component {
       orderQty: "",
       amount:"",
       perItem:"",
-      product:[]
+      product:[],
+      lastOrderQueue:""
     };
     // this.updateOrder = this.updateOrder.bind(this);
     // this.getProductDetails = this.getProductDetails(this);
@@ -33,7 +34,14 @@ export class OrderPage extends Component {
             this.setState({ product:response.data.data});
             
           }
-      });
+    });
+
+    UserService.getOrderSize(this.props.token).then((response) => {
+        console.log(response.data);
+        this.setState({lastOrderQueue:response.data.data})
+        //this.setState({ items: response.data.data})
+        //this.props.ordersDta(response.data.data)
+    });
   }
 
   getProductDetails = (name)=>{
@@ -58,10 +66,14 @@ export class OrderPage extends Component {
         const payload ={
           productCode:data.productCode,
           productName:data.productName,
-          orderQueue:data.orderQty
+          netCost:data.orderQty,
+          orderQueue:data.lastOrderQueue +1
         };
         UserService.postOrder(this.props.token, payload).then((response) => {
           console.log(response.data);
+          if(response.data.status==true){
+            alert( `${response.data.data}`)
+          }
         });
       }else{
         alert(`Order quantity is not above min quantity`);

@@ -9,7 +9,7 @@ const GET_ORDER_REST_API_URL = 'http://localhost:8080/api/getOrder/';
 const POST_ORDER_UPDATE_REST_API_URL = 'http://localhost:8080/api/updateOrder/';
 const GET_ORDER_DIST_REST_API_URL = 'http://localhost:8080/api/distriOrder/';
 const POST_PLACE_ORDER_DIST_REST_API_URL = 'http://localhost:8080/api/placeOrder';
-
+const ORDER_QUEUE_REST_API_URL = 'http://localhost:8080/api/getOrdersSize';
 class UserService {
 
     // constructor() {
@@ -37,6 +37,14 @@ class UserService {
         };
         console.log(token+" JWT")
         return axios.get(ORDRES_REST_API_URL,option);
+    }
+
+    getOrderSize(token){
+        const option = {
+            headers: {'Authorization': 'Bearer '+token},
+        };
+        //console.log(token+" JWT")
+        return axios.get(ORDER_QUEUE_REST_API_URL,option);
     }
 
     getDeleteCust(token, id){
