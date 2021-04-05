@@ -3,9 +3,9 @@ import { Component } from "react";
 import { Col, Table, Button } from "react-bootstrap";
 import { BiLogOutCircle } from "react-icons/bi";
 import { connect } from "react-redux";
-
+import { isDistributor, ordersDta, productsDta } from "../action";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { isDistributor } from "../action";
+
 import Delete from "./Delete";
 import UserService from './UserService';
 class DistributorPage extends Component {
@@ -47,12 +47,17 @@ class DistributorPage extends Component {
   componentDidMount(){
     UserService.getOrders(this.props.token).then((response) => {
         console.log(response.data);
-        this.setState({ items: response.data.data})
+        //this.setState({ items: response.data.data})
+        this.props.ordersDta(response.data.data)
     });
     // console.log(response.data);
   }
+
+  
+
   render() {
-    const itemList = this.state.items.map((item) => {
+    //console.log(this.props.ordersData)
+    const itemList = this.props.ordersData.map((item) => {
       return (
         <tr key={item.orderId}>
           <td>{item.orderId}</td>
@@ -122,14 +127,19 @@ class DistributorPage extends Component {
 }
 const mapStateToProps = (state) => {
   return {
+    ordersData: state.ordersData,
     isdistributor: state.distributor,
     token: state.token
+    
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     isDistributor: () => {
       dispatch(isDistributor());
+    },
+    ordersDta: (ord) => {
+      dispatch(ordersDta(ord))
     }
   };
 };

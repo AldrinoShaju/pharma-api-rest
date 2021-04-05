@@ -10,27 +10,27 @@ class Home extends Component {
         {
           productName: "product 1",
           price: 20,
-          id: 1
+          productCode: 1
         },
         {
           productName: "product 2",
           price: 20,
-          id: 2
+          productCode: 2
         },
         {
           productName: "product 3",
           price: 20,
-          id: 3
+          productCode: 3
         },
         {
           productName: "product 4",
           price: 20,
-          id: 4
+          productCode: 4
         },
         {
           productName: "product 5",
           price: 20,
-          id: 5
+          productCode: 5
         }
       ]
     };
@@ -55,7 +55,7 @@ class Home extends Component {
             <Card.Body>
               <Col>
                 <Row>{item.productName}</Row>
-                <Row>{item.perItem}</Row>
+                <Row>Rs. {item.perItem}</Row>
               </Col>
             </Card.Body>
           </Card>

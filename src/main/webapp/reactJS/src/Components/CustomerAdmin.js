@@ -4,7 +4,7 @@ import { MdDelete } from "react-icons/md";
 import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
 import Delete from "./Delete";
 import { connect } from "react-redux";
-import { isCustomer, isDistributor, isLogin, register } from "../action";
+import { isLogin, customersDta } from "../action";
 import axios from 'axios';
 import UserService from './UserService';
 export class CustomerAdmin extends Component {
@@ -39,15 +39,16 @@ export class CustomerAdmin extends Component {
       ]
     };
   }
-  componentDidMount(){
-    UserService.getUsers(this.props.token).then((response) => {
-        console.log(response.data);
-        this.setState({ items: response.data.data})
-    });
-    // console.log(response.data);
-  }
+  // componentDidMount(){
+  //   UserService.getUsers(this.props.token).then((response) => {
+  //       console.log(response.data);
+  //       //this.setState({ items: response.data.data})
+  //       this.props.customersDta(response.data.data)
+  //   });
+  //   // console.log(response.data);
+  // }
   render() {
-    const itemList = this.state.items.map((item) => {
+    const itemList = this.props.customersData.map((item) => {
       return (
         <tr key={item.userId}>
           <td>{item.userId}</td>
@@ -101,13 +102,18 @@ export class CustomerAdmin extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    customersData: state.customersData
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     isLogin: () => {
       dispatch(isLogin());
+    },
+
+    customersDta: (cust) => {
+      dispatch(customersDta(cust))
     }
   };
 };

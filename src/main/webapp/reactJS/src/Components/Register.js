@@ -1,8 +1,9 @@
 import { Component } from "react";
-import { Form, Button, Card, Row, Col } from "react-bootstrap";
+import { Form, Button, Card, Row, Col, DropdownButton, Dropdown  } from "react-bootstrap";
 import { connect } from "react-redux";
 import { register } from "../action";
 import axios from 'axios';
+import UserService from './UserService';
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -14,8 +15,21 @@ class Register extends Component {
       address: "",
       email:"",
       phone:"",
-      passwordValid: false
+      passwordValid: false,
+      dist:[]
     };
+  }
+  componentDidMount(){
+    UserService.getDist().then((response) => {
+        console.log(response.data);
+        this.setState({ dist: response.data.data})
+        
+    });
+  }
+  setDist=(dis)=>{
+    this.setState({
+      distributorName: dis
+    })
   }
   registerUser = (data) => {
     console.log(data.username);
@@ -34,14 +48,23 @@ class Register extends Component {
     };
     axios.post("http://localhost:8080/register", payload)
         .then(response => {
-        if(response.data!=null){
+        if(response.data===true){
           //alert("user data sent");
           console.log(response.data);
+
           //this.setState({ auth: response.data.auth, token:response.data.data });
+        }else{
+          alert(`${response.data.data}`)
+          console.log(response.data);
         }
       });
   };
   render() {
+    const distList = this.state.dist.map((dis) => {
+      return (
+        <Dropdown.Item as="button" onClick={()=>{this.setDist(dis.userName)}}>{dis.userName}</Dropdown.Item>
+      );
+    });
     return (
       <Card
         bg="light"
@@ -55,7 +78,7 @@ class Register extends Component {
               this.registerUser(this.state);
             }}
           >
-            <Form.Group as={Row} controlId="formBasicEmail">
+            <Form.Group as={Row} controlId="userName">
               <Form.Label column sm={4}>
                 User Name
               </Form.Label>
@@ -69,7 +92,7 @@ class Register extends Component {
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicEmail">
+            <Form.Group as={Row} controlId="password">
               <Form.Label column sm={4}>
                 Password
               </Form.Label>
@@ -83,7 +106,7 @@ class Register extends Component {
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicquatity">
+            <Form.Group as={Row} controlId="repassword">
               <Form.Label column sm={4}>
                 Re-Password
               </Form.Label>
@@ -100,12 +123,15 @@ class Register extends Component {
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicEmail">
+            <Form.Group as={Row} controlId="distName">
               <Form.Label column sm={4}>
                 Distributor Name
               </Form.Label>
               <Col sm={5}>
-                <Form.Control
+              <DropdownButton id="dropdown-item-button" title={this.state.distributorName!==""?this.state.distributorName:"Select Distributer"}>
+                {distList}
+              </DropdownButton>
+                {/* <Form.Control
                   required
                   type="text"
                   placeholder="Distributor Name"
@@ -113,10 +139,10 @@ class Register extends Component {
                   onChange={(e) =>
                     this.setState({ distributorName: e.target.value })
                   }
-                />
+                /> */}
               </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicEmail">
+            <Form.Group as={Row} controlId="address">
               <Form.Label column sm={4}>
                 Address
               </Form.Label>
@@ -130,7 +156,7 @@ class Register extends Component {
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicEmail">
+            <Form.Group as={Row} controlId="email">
               <Form.Label column sm={4}>
                 Email
               </Form.Label>
@@ -144,7 +170,7 @@ class Register extends Component {
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicEmail">
+            <Form.Group as={Row} controlId="phone">
               <Form.Label column sm={4}>
                 Phone
               </Form.Label>

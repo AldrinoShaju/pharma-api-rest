@@ -56,6 +56,7 @@ export class OrderPage extends Component {
     if(data.orderQty!=0){
       if(data.minQty<=data.orderQty){
         const payload ={
+          productCode:data.productCode,
           productName:data.productName,
           orderQueue:data.orderQty
         };
@@ -85,12 +86,11 @@ export class OrderPage extends Component {
               this.updateOrder(this.state);
             }}
           >
-            <Form.Group as={Row} controlId="formBasicEmail">
+            <Form.Group as={Row} controlId="productCode">
               <Form.Label column sm={4}>
                 Product Code
               </Form.Label>
               <Col sm={5}>
-              
                 <Form.Control
                 
                   type="text"
@@ -103,16 +103,16 @@ export class OrderPage extends Component {
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicEmail">
+            <Form.Group as={Row} controlId="productName">
               <Form.Label column sm={4}>
                 Product Name
               </Form.Label>
-              <Col sm={2}>
-              <DropdownButton id="dropdown-item-button" title="Select Product">
+              <Col sm={3}>
+              <DropdownButton id="dropdown-item-button" title={this.state.productName!==""?this.state.productName:"Select Product"}>
                 {productList}
               </DropdownButton>
               </Col>
-              <Col sm={3}>
+              {/* <Col sm={4}>
                 <Form.Control
                   type="text"
                   placeholder="Product Name"
@@ -122,7 +122,7 @@ export class OrderPage extends Component {
                     this.setState({ productName: e.target.value })
                   }
                 />
-                </Col>
+                </Col> */}
             </Form.Group>
             {/* <Form.Group as={Row} controlId="formBasicEmail">
               <Form.Label column sm={4}>
@@ -137,7 +137,7 @@ export class OrderPage extends Component {
                 />
               </Col>
             </Form.Group> */}
-            <Form.Group as={Row} controlId="formBasicquatity">
+            <Form.Group as={Row} controlId="minOrder">
               <Form.Label column sm={4}>
                 Min Qty to Order
               </Form.Label>
@@ -151,7 +151,7 @@ export class OrderPage extends Component {
                 />
               </Col>
             </Form.Group>
-            <Form.Group as={Row} controlId="formBasicEmail">
+            <Form.Group as={Row} controlId="orderQty">
               <Form.Label column sm={4}>
                 Ordering Quantity
               </Form.Label>
@@ -177,7 +177,7 @@ export class OrderPage extends Component {
                 />
               </Col>
             </Form.Group> */}
-            <Form.Group as={Row} controlId="formBasicEmail">
+            <Form.Group as={Row} controlId="amount">
               <Form.Label column sm={4}>
                 Amount in Rs
               </Form.Label>

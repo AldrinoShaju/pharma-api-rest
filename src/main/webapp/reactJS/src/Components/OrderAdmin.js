@@ -46,16 +46,16 @@ export class OrderAdmin extends Component {
       ]
     };
   }
-  componentDidMount(){
-    //let location = useLocation();
-    UserService.getOrders(this.props.token).then((response) => {
-        console.log(response.data);
-        this.setState({ items: response.data.data})
-    });
-    // console.log(response.data);
-  }
+  // componentDidMount(){
+  //   //let location = useLocation();
+  //   UserService.getOrders(this.props.token).then((response) => {
+  //       console.log(response.data);
+  //       this.setState({ items: response.data.data})
+  //   });
+  //   // console.log(response.data);
+  // }
   render() {
-    const itemList = this.state.items.map((item) => {
+    const itemList = this.props.ordersData.map((item) => {
       return (
         <tr key={item.orderId}>
           <td>{item.orderId}</td>
@@ -89,7 +89,7 @@ export class OrderAdmin extends Component {
                 <Form.Group controlId="formBasic">
                   <Form.Control
                     type="text"
-                    placeholder="Enter CustomerID"
+                    placeholder="Enter ID"
                     value={this.state.customerID}
                     onChange={(e) =>
                       this.setState({ customerID: e.target.value })
@@ -154,7 +154,8 @@ export class OrderAdmin extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    ordersData: state.ordersData
   };
 };
 const mapDispatchToProps = (dispatch) => {

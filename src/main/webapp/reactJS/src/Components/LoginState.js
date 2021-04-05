@@ -22,7 +22,7 @@ class LoginState extends Component {
 
   submit = async (authType, userName, password) => {
     if (userName === "" || password === "") {
-      console.log(this.props.token);
+      // console.log(this.props.token);
       alert("enter username and password");
     } else if (authType === "Administrator") {
       const user ={
@@ -35,10 +35,14 @@ class LoginState extends Component {
           //alert("user data sent");
           console.log(response.data);
           this.props.isAdminLogin(response.data.data);
+        }else if(response.data.auth!="ADMIN" || response.data.status===false){
+          console.log(response.data);
+          alert(`Invalid Username or Password`)
         }
       });
       
     } else if (authType === "Distributor") {
+      // console.log(this.props.ordersData)
       const user ={
         name : userName,
         password : password
@@ -51,6 +55,9 @@ class LoginState extends Component {
             //this.setState({ auth: response.data.auth, token:response.data.data });
             //UserService.getToken(response.data.data);
             this.props.isDistributor(response.data.data);
+          }else if(response.data.auth!="DIST" || response.data.status===false){
+            console.log(response.data);
+            alert(`Invalid Username or Password`)
           }
       });
       
@@ -66,6 +73,9 @@ class LoginState extends Component {
             console.log(response.data);
             //this.setState({ auth: response.data.auth, token:response.data.data });
             this.props.isCustomer(response.data.data);
+          }else if(response.data.auth!="CUSTOMER" || response.data.status===false){
+            console.log(response.data);
+            alert(`Invalid Username or Password`)
           }
       });
       
@@ -150,7 +160,8 @@ const mapStateToProps = (state) => {
     isDistributor: state.distributor,
     isCustomer: state.customer,
     isRegister: state.register,
-    token: state.token
+    token: state.token,
+    ordersData: state.ordersData
   };
 };
 const mapDispatchToProps = (dispatch) => {

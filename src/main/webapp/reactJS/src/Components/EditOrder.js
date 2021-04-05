@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Card, Form, Col, Row, Button } from "react-bootstrap";
 import UserService from './UserService';
 import { connect } from "react-redux";
-import { isCustomer, isDistributor, isLogin, register } from "../action";
+import { isCustomer, isDistributor, isLogin, register, ordersDta } from "../action";
 import axios from 'axios';
 export class EditOrder extends Component {
   constructor(props) {
@@ -46,6 +46,15 @@ export class EditOrder extends Component {
 
     UserService.postOrderUpdate(this.props.token, this.props.customerID,payload).then((response) => {
       console.log(response.data);
+      if(response.data.status===false){
+        alert(`Updating Order Failed`);
+      }else if(response.data.status===true){
+        UserService.getOrders(this.props.token).then((response) => {
+          console.log(response.data);
+          //this.setState({ items: response.data.data})
+          this.props.ordersDta(response.data.data)
+        });
+      }
   });
   };
   render() {
@@ -82,6 +91,7 @@ export class EditOrder extends Component {
               <Col sm={5}>
                 <Form.Control
                   type="text"
+                  disabled
                   placeholder="Product Name"
                   value={this.state.productName}
                   onChange={(e) =>
@@ -110,6 +120,7 @@ export class EditOrder extends Component {
               <Col sm={5}>
                 <Form.Control
                   type="text"
+                  disabled
                   placeholder="Min Qty to Order"
                   value={this.state.minQty}
                   onChange={(e) => this.setState({ minQty: e.target.value })}
@@ -118,7 +129,7 @@ export class EditOrder extends Component {
             </Form.Group>
             <Form.Group as={Row} controlId="formBasicEmail">
               <Form.Label column sm={4}>
-                Ordering Quantity
+                Order Queue
               </Form.Label>
               <Col sm={5}>
                 <Form.Control
@@ -153,7 +164,8 @@ export class EditOrder extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    ordersData: state.ordersData
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -169,6 +181,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     toRegister: () => {
       dispatch(register());
+    },
+    ordersDta: (ord) => {
+      dispatch(ordersDta(ord))
     }
   };
 };

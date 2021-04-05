@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const USERS_REST_API_URL = 'http://localhost:8080/api/getCustomerDetails';
+const DISTRIBUTER_REST_API_URL = 'http://localhost:8080/api/getDistributerDetails';
 const ORDRES_REST_API_URL = 'http://localhost:8080/api/getOrders';
 const DELETE_CUSTOMER_REST_API_URL = 'http://localhost:8080/api/deleteCustomer/';
 const DELETE_ORDER_REST_API_URL = 'http://localhost:8080/api/deleteOrder/';
@@ -24,6 +25,10 @@ class UserService {
             headers: {'Authorization': 'Bearer '+token},
         };
         return axios.get(USERS_REST_API_URL, option);
+    }
+
+    getDist(){
+        return axios.get(DISTRIBUTER_REST_API_URL);
     }
 
     getOrders(token){

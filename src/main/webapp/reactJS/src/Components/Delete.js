@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { connect } from "react-redux";
-import { isCustomer, isDistributor, isLogin, register } from "../action";
+import { isCustomer, isDistributor, isLogin, register, customersDta, ordersDta } from "../action";
 import axios from 'axios';
 import UserService from './UserService';
 export class Delete extends Component {
@@ -18,23 +18,49 @@ export class Delete extends Component {
   }
 
   deleterUser = (id) => {
-    //console.log(this.props.token);
+    console.log(this.props.customersData);
+
     if(this.props.title==("Delete Customer")){
     UserService.getDeleteCust(this.props.token, id).then((response) => {
       console.log(response.data);
       if(response.data.status===false){
         alert(`Invalid ID. Check Again`);
+      }else if(response.data.status===true){
+        UserService.getUsers(this.props.token).then((response) => {
+          console.log(response.data);
+          //this.setState({ items: response.data.data})
+          this.props.customersDta(response.data.data)
+      });
       }
     });
     }
+
     else if(this.props.title==("Delete Order")){
       UserService.getDeleteOrder(this.props.token, id).then((response) => {
         //console.log(response.data);
+        if(response.data.status===false){
+          alert(`Invalid ID. Check Again`);
+        }else if(response.data.status===true){
+          UserService.getOrders(this.props.token).then((response) => {
+            console.log(response.data);
+            //this.setState({ items: response.data.data})
+            this.props.ordersDta(response.data.data)
+          });
+        }
       });
     }
     else if(this.props.title==("Order Accepting")){
       UserService.getDistOrder(this.props.token, id).then((response) => {
         console.log(response.data);
+        if(response.data.status===false){
+          alert(`Process Failed`);
+        }else if(response.data.status===true){
+          UserService.getOrders(this.props.token).then((response) => {
+            console.log(response.data);
+            //this.setState({ items: response.data.data})
+            this.props.ordersDta(response.data.data)
+          });
+        }
       });
     }
   };
@@ -71,7 +97,7 @@ export class Delete extends Component {
             </Form.Group>
             <center>
               <Button varient="warning" type="submit">
-                Delete
+                {this.props.authType==="Distributor"?"Accept":"Delete"}
               </Button>
               <Button
                 varient="warning"
@@ -90,13 +116,22 @@ export class Delete extends Component {
 const mapStateToProps = (state) => {
   return {
     isAdmin: state.admin,
-    token: state.token
+    token: state.token,
+    customersData: state.customersData,
+    ordersData: state.ordersData,
+    
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     isLogin: () => {
       dispatch(isLogin());
+    },
+    customersDta: (cust) => {
+      dispatch(customersDta(cust))
+    },
+    ordersDta: (ord) => {
+      dispatch(ordersDta(ord))
     }
   };
 };

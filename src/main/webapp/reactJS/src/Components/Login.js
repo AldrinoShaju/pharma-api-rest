@@ -37,7 +37,8 @@ const mapStateToProps = (state) => {
     isAdmin: state.admin,
     isDistributor: state.distributor,
     isCustomer: state.customer,
-    toRegister: state.register
+    toRegister: state.register,
+    ordersData: state.ordersData
   };
 };
 
