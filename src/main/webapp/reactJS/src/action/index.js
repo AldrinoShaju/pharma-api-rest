@@ -21,3 +21,24 @@ export const register = () => {
     type: "NEW_USER"
   };
 };
+
+export const customersDta = (cust) => {
+  return {
+    type: "CUSTOMERS_DATA",
+    cust
+  };
+};
+
+export const productsDta = (prod) => {
+  return {
+    type: "PRODUCTS_DATA",
+    prod
+  };
+};
+
+export const ordersDta = (ord) => {
+  return {
+    type: "ORDERS_DATA",
+    ord
+  };
+};
