@@ -7,6 +7,7 @@ import com.app.pharma.dto.OrderDto;
 import com.app.pharma.dto.UpdateOrderDto;
 import com.app.pharma.model.Orders;
 import com.app.pharma.model.Product;
+import com.app.pharma.model.Users;
 import com.app.pharma.repository.OrderRepository;
 import com.app.pharma.repository.ProductRepository;
 import com.app.pharma.repository.UserRepository;
@@ -50,6 +51,10 @@ public class GlobalService extends EntitiyHawk {
 
         }
         return  genericError("You are not Authorized to view this information");
+    }
+
+    public ResponseEntity getDistributerDetails(){
+        return genericResponse(userRepository.findByAuth("DIST"));
     }
 
 
@@ -96,9 +101,12 @@ public class GlobalService extends EntitiyHawk {
     public ResponseEntity getOrders(HttpServletRequest request){
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
-        if(auth.equalsIgnoreCase("ADMIN")||auth.equalsIgnoreCase("DIST")){
+        if(auth.equalsIgnoreCase("ADMIN")){
 
             return genericSuccess(orderRepository.findAll());
+        }else if(auth.equalsIgnoreCase("DIST")){
+            String distname = jwtUtils.extractUsername(token[1]);
+            return genericSuccess(orderRepository.findByDist(distname));
         }
         return  genericError("You are not Authorized to get this information");
 
@@ -175,8 +183,14 @@ public class GlobalService extends EntitiyHawk {
     }
 
 
-    public ResponseEntity placeOrder(OrderDto pOrder){
+    public ResponseEntity placeOrder(OrderDto pOrder, HttpServletRequest request){
+        String[] token = (request.getHeader("authorization")).split(" ");
+        String auth = jwtUtils.extractSubject(token[1]);
+        if(auth.equalsIgnoreCase("CUSTOMER")) {
 
+            String username = jwtUtils.extractUsername(token[1]);
+            System.out.println(username);
+            Users currentUser = userRepository.findByUserName(username);
 
             Orders plOrder = new Orders();
             plOrder.setProductName(pOrder.getProductName());
@@ -188,15 +202,16 @@ public class GlobalService extends EntitiyHawk {
 
             plOrder.setNetCost(pOrder.getOrderQueue());
             plOrder.setMinQuantity(pro.getMinQuantity());
-            plOrder.setAmount(plOrder.getNetCost()*pro.getPerItem());
+            plOrder.setAmount(plOrder.getNetCost() * pro.getPerItem());
             plOrder.setProductCode(pOrder.getProductCode());
+            plOrder.setDist(currentUser.getDist());
             //plOrder.setOrderId(5);
             orderRepository.save(plOrder);
 
             return genericSuccess("Order is Placed");
 
-
-
+        }
+        return genericSuccess("Login as customer to place an order");
     }
 
 }

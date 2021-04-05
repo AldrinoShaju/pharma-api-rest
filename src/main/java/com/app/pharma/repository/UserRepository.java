@@ -2,6 +2,7 @@ package com.app.pharma.repository;
 
 
 import com.app.pharma.model.Users;
+import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
@@ -10,6 +11,8 @@ public interface UserRepository extends MongoRepository<Users,String> {
 
     @Override
     boolean existsById(String id);
+
+    boolean existsByUserName(String name);
 
     Users findByUserName(String name);
     Users findByEmail(String email);

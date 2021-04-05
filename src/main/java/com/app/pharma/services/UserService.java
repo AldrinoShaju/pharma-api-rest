@@ -35,15 +35,16 @@ public class UserService extends EntitiyHawk implements UserDetailsService {
         user.setAddress(rDto.getAddress());
         user.setPhone(rDto.getPhone());
         user.setAuth(rDto.getAuth());
-        List<Users> distri = repository.findByAuth("DIST");
-        for (Users dist:
-             distri) {
-            if(!dist.getUserName().equalsIgnoreCase(rDto.getDist())){
-                return genericError("Distributor not Available");
-            }
-        }
-        if(rDto.getEmail()==null){
-            return genericError("email Email cannot be blank");
+        boolean ifavail = repository.existsByUserName(rDto.getDist());
+//        List<Users> distri = repository.findByAuth("DIST");
+//        for (Users dist:
+//             distri) {
+//            if(!dist.getUserName().equalsIgnoreCase(rDto.getDist())){
+//                return genericError("Distributor not Available");
+//            }
+//        }
+        if(ifavail==false){
+            return genericError("Distributor not Available");
         }else{
             user.setDist(rDto.getDist());
             user.setEmail(rDto.getEmail());
@@ -55,10 +56,11 @@ public class UserService extends EntitiyHawk implements UserDetailsService {
 
     public ResponseEntity<String> loginUser(LoginDto lDto){
 
-        String email = lDto.getName();
-        Users search = repository.findByUserName(email);
-
-        if(search==null){
+        String name = lDto.getName();
+        Users search = repository.findByUserName(name);
+        //System.out.println("Password: "+search.getPassword());
+        //String pass = search.getPassword();
+        if(search==null || !search.getPassword().equalsIgnoreCase(lDto.getPassword())){
             return genericError("Invalid Username or Password");
         }
         else{

@@ -23,7 +23,6 @@ import java.util.function.Function;
 public class JWTUtils {
 
     public String CreateJWTToken(Users user) {
-        
         Claims claims= Jwts.claims();
         claims.setIssuer(String.valueOf(user.getUserId()));
         claims.setSubject(user.getAuth());

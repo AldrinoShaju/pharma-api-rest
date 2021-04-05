@@ -44,6 +44,11 @@ public class GlobalController extends EntitiyHawk {
         return globalService.getCustomerDetails(request);
     }
 
+    @GetMapping("/getDistributerDetails")
+    public ResponseEntity getDistributerDetails(){
+        return globalService.getDistributerDetails();
+    }
+
 
     @GetMapping("/getAllUserData")
     public ResponseEntity getAllUserData(HttpServletRequest request){
@@ -98,8 +103,8 @@ public class GlobalController extends EntitiyHawk {
     }
 
     @PostMapping("/placeOrder")
-    public ResponseEntity placeOrder(@RequestBody OrderDto pOrder){
-        return globalService.placeOrder(pOrder);
+    public ResponseEntity placeOrder(@RequestBody OrderDto pOrder, HttpServletRequest request){
+        return globalService.placeOrder(pOrder, request);
 
     }
 

@@ -23,11 +23,13 @@ public class Orders implements Serializable {
 
     private double amount;
 
+    private String dist;
+
     public Orders() {
 
     }
 
-    public Orders(String orderId, String productCode, String productName, int minQuantity, int orderQueue, double netCost, double amount) {
+    public Orders(String orderId, String productCode, String productName, int minQuantity, int orderQueue, double netCost, double amount, String dist) {
         this.orderId = orderId;
         this.productCode = productCode;
         this.productName = productName;
@@ -35,15 +37,17 @@ public class Orders implements Serializable {
         this.orderQueue = orderQueue;
         this.netCost = netCost;
         this.amount = amount;
+        this.dist = dist;
     }
 
-    public Orders(String productCode, String productName, int minQuantity, int orderQueue, double netCost, double amount) {
+    public Orders(String productCode, String productName, int minQuantity, int orderQueue, double netCost, double amount, String dist) {
         this.productCode = productCode;
         this.productName = productName;
         this.minQuantity = minQuantity;
         this.orderQueue = orderQueue;
         this.netCost = netCost;
         this.amount = amount;
+        this.dist = dist;
     }
 
     public String getOrderId() {
@@ -102,7 +106,13 @@ public class Orders implements Serializable {
         this.productCode = productCode;
     }
 
+    public String getDist() {
+        return dist;
+    }
 
+    public void setDist(String dist) {
+        this.dist = dist;
+    }
 
     @Override
     public int hashCode() {
