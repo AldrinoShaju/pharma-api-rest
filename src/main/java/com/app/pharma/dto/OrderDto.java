@@ -4,6 +4,7 @@ package com.app.pharma.dto;
 import javax.validation.constraints.Size;
 
 public class OrderDto {
+
     private String productCode;
     private String productName;
     private int orderQueue;

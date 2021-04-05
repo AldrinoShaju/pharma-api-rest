@@ -100,7 +100,7 @@ public class GlobalService extends EntitiyHawk {
 
             return genericSuccess(orderRepository.findAll());
         }
-        return  genericError("You are not Authorized to delete this information");
+        return  genericError("You are not Authorized to get this information");
 
     }
     //
@@ -114,12 +114,15 @@ public class GlobalService extends EntitiyHawk {
         if(auth.equalsIgnoreCase("ADMIN")){
 
             Orders update = orderRepository.findByOrderId(orderID);
+
             Product update2 = productRepository.findByProductCode(update.getProductCode());
+
             //System.out.println(update.toString());
             update.setProductName(orderUpdate.getProductName());
             update.setOrderQueue(orderUpdate.getOrderQueue());
             update.setMinQuantity(orderUpdate.getMinQuantity());
             update.setNetCost(orderUpdate.getNetCost());
+
             update.setAmount(orderUpdate.getNetCost()*update2.getPerItem());
             //System.out.println(update.toString());
             orderRepository.save(update);
@@ -140,7 +143,7 @@ public class GlobalService extends EntitiyHawk {
             return genericSuccess(orderRepository.findByOrderId(orderID));
 
         }
-        return  genericError("You are not Authorized to delete this information");
+        return  genericError("You are not Authorized to get this information");
 
     }
     //
@@ -177,11 +180,11 @@ public class GlobalService extends EntitiyHawk {
 
             Orders plOrder = new Orders();
             plOrder.setProductName(pOrder.getProductName());
-            System.out.println(pOrder.getProductName());
+            //System.out.println(pOrder.getProductName());
             plOrder.setOrderQueue(pOrder.getOrderQueue());
 
             Product pro = productRepository.findByProductName(plOrder.getProductName());
-            System.out.println(pro);
+            //System.out.println(pro);
 
             plOrder.setNetCost(pOrder.getOrderQueue());
             plOrder.setMinQuantity(pro.getMinQuantity());
