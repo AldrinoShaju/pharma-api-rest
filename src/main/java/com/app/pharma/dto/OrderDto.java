@@ -7,6 +7,7 @@ public class OrderDto {
 
     private String productCode;
     private String productName;
+    private int netCost;
     private int orderQueue;
 
     public String getProductName() {
@@ -31,5 +32,13 @@ public class OrderDto {
 
     public void setProductCode(String productCode) {
         this.productCode = productCode;
+    }
+
+    public int getNetCost() {
+        return netCost;
+    }
+
+    public void setNetCost(int netCost) {
+        this.netCost = netCost;
     }
 }

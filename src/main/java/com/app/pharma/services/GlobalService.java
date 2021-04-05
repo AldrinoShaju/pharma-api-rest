@@ -200,7 +200,7 @@ public class GlobalService extends EntitiyHawk {
             Product pro = productRepository.findByProductName(plOrder.getProductName());
             //System.out.println(pro);
 
-            plOrder.setNetCost(pOrder.getOrderQueue());
+            plOrder.setNetCost(pOrder.getNetCost());
             plOrder.setMinQuantity(pro.getMinQuantity());
             plOrder.setAmount(plOrder.getNetCost() * pro.getPerItem());
             plOrder.setProductCode(pOrder.getProductCode());

@@ -74,6 +74,12 @@ public class GlobalController extends EntitiyHawk {
         return globalService.getOrders(request);
 
     }
+
+    @GetMapping("/getOrdersSize")
+    public ResponseEntity getOrdersSize(HttpServletRequest request){
+        return genericSuccess(orderRepository.findAll().size());
+
+    }
 //
 //
     @PostMapping("/updateOrder/{orderID}")
