@@ -50,7 +50,12 @@ public class UserService extends EntitiyHawk implements UserDetailsService {
             user.setAuth(rDto.getAuth());
             user.setDist(rDto.getDist());
             user.setEmail(rDto.getEmail());
-            repository.save(user);
+            try{
+                repository.save(user);
+            }catch (Exception e){
+                return genericError("User not Registered");
+            }
+
             return genericSuccess("User Registered");
         }
 

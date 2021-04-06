@@ -73,9 +73,7 @@ public class GlobalService extends EntitiyHawk {
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
         if(auth.equalsIgnoreCase("ADMIN") && userRepository.existsById(custID)){
-
             userRepository.deleteById(custID);
-
             return genericSuccess("Customer Deleted");
         }
 
@@ -146,12 +144,12 @@ public class GlobalService extends EntitiyHawk {
     public ResponseEntity getOrder(String orderID, HttpServletRequest request){
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
-        if(auth.equalsIgnoreCase("ADMIN")){
+        if(auth.equalsIgnoreCase("ADMIN")&& orderRepository.existsById(orderID)){
 
             return genericSuccess(orderRepository.findByOrderId(orderID));
 
         }
-        return  genericError("You are not Authorized to get this information");
+        return  genericError("You are not Authorized to get this information or ID is invalid");
 
     }
     //
@@ -160,12 +158,12 @@ public class GlobalService extends EntitiyHawk {
     public ResponseEntity deleteOrder(String orderID, HttpServletRequest request){
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
-        if(auth.equalsIgnoreCase("ADMIN")){
+        if(auth.equalsIgnoreCase("ADMIN")&& orderRepository.existsById(orderID)){
             orderRepository.deleteById(orderID);
             return genericSuccess("Order Deleted");
 
         }
-        return  genericError("You are not Authorized to delete this information");
+        return  genericError("You are not Authorized to delete this information or the ID is invalid");
 
     }
 
@@ -173,12 +171,12 @@ public class GlobalService extends EntitiyHawk {
     public ResponseEntity distriOrder(String orderID, HttpServletRequest request){
         String[] token = (request.getHeader("authorization")).split(" ");
         String auth = jwtUtils.extractSubject(token[1]);
-        if(auth.equalsIgnoreCase("DIST")){
+        if(auth.equalsIgnoreCase("DIST") && orderRepository.existsById(orderID)){
             orderRepository.deleteById(orderID);
             return genericSuccess("Order is Distributed");
 
         }
-        return  genericError("You are not Authorized to set Distributed for this order");
+        return  genericError("You are not Authorized or the ID is invalid");
 
     }
 

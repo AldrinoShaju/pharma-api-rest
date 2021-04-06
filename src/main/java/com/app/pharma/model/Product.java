@@ -18,6 +18,8 @@ public class Product implements Serializable {
 
     private double perItem;
 
+    private String src;
+
     public Product() {
     }
 
@@ -64,6 +66,14 @@ public class Product implements Serializable {
 
     public void setPerItem(double perItem) {
         this.perItem = perItem;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 
     @Override

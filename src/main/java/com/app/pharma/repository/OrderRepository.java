@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends MongoRepository<Orders,String> {
 
+
+
     Orders findByOrderId(String Id);
     List<Orders> findByDist(String dist);
 }
