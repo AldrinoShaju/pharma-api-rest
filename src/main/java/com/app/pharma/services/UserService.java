@@ -34,24 +34,20 @@ public class UserService extends EntitiyHawk implements UserDetailsService {
     @Autowired
     JWTUtils jwtUtils;
 
-    public ResponseEntity<String> registerUser(RegisterUserDTO rDto){
+    public ResponseEntity registerUser(RegisterUserDTO rDto){
         Users user = new Users();
-        user.setUserName(rDto.getName());
-        user.setPassword(rDto.getPassword());
-        user.setAddress(rDto.getAddress());
-        user.setPhone(rDto.getPhone());
-        user.setAuth(rDto.getAuth());
-        boolean ifavail = repository.existsByUserName(rDto.getDist());
-//        List<Users> distri = repository.findByAuth("DIST");
-//        for (Users dist:
-//             distri) {
-//            if(!dist.getUserName().equalsIgnoreCase(rDto.getDist())){
-//                return genericError("Distributor not Available");
-//            }
-//        }
-        if(ifavail==false){
-            return genericError("Distributor not Available");
+        if(repository.existsByUserName(rDto.getName())){
+            return genericError("Username already exist try another");
+        }else if(repository.existsByEmail(rDto.getEmail())){
+            return genericError("Email already exist try another");
+        }else if(repository.existsByPhone(rDto.getPhone())){
+            return genericError("Phone number already exist try another");
         }else{
+            user.setUserName(rDto.getName());
+            user.setPassword(rDto.getPassword());
+            user.setAddress(rDto.getAddress());
+            user.setPhone(rDto.getPhone());
+            user.setAuth(rDto.getAuth());
             user.setDist(rDto.getDist());
             user.setEmail(rDto.getEmail());
             repository.save(user);
@@ -60,7 +56,7 @@ public class UserService extends EntitiyHawk implements UserDetailsService {
 
     }
 
-    public ResponseEntity<String> loginUser(LoginDto lDto){
+    public ResponseEntity loginUser(LoginDto lDto){
 
 //        String name = lDto.getName();
 //        Users search = repository.findByUserName(name);

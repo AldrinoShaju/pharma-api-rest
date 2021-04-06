@@ -68,7 +68,7 @@ package com.app.pharma.config;
 
 
 import com.app.pharma.services.UserService;
-import io.swagger.models.HttpMethod;
+//import io.swagger.models.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
