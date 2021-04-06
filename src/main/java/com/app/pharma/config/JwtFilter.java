@@ -84,11 +84,11 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            System.out.println("User not null");
+            //System.out.println("User not null");
             UserDetails userDetails = service.loadUserByUsername(userName);
-            System.out.println(userDetails);
+            //System.out.println(userDetails);
             if (jwtUtil.validateToken(token, userDetails)) {
-//                System.out.println("Token Validated");
+                System.out.println("Token Validated");
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
@@ -96,9 +96,9 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-        if(userName==null){
-            System.out.println("User is null");
-        }
+//        if(userName==null){
+//            System.out.println("User is null");
+//        }
         //System.out.println(httpServletResponse.toString());
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }

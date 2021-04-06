@@ -24,17 +24,22 @@ public class JWTUtils {
 
     public String CreateJWTToken(Users user) {
         Claims claims= Jwts.claims();
-        claims.setIssuer(String.valueOf(user.getUserId()));
+        //claims.setIssuer(String.valueOf(user.getUserId()));
         claims.setSubject(user.getAuth());
         claims.setAudience(user.getUserName());
-        claims.setIssuedAt(new Date());
+        claims.setIssuedAt(new Date(System.currentTimeMillis()));
         
         String token = Jwts.builder()
                 .setClaims(claims)
+                .setExpiration(new Date(System.currentTimeMillis() + 1000*60*60*1))
                 .signWith(SignatureAlgorithm.HS256, Constants.JWT_SECRET)
                 .compact();
         
         return token;
+    }
+
+    public boolean isTokenExpired(String token){
+        return extractClaim(token, Claims::getExpiration).before(new Date());
     }
 
     public String extractUsername(String token) {
@@ -57,7 +62,7 @@ public class JWTUtils {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()));
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
 }

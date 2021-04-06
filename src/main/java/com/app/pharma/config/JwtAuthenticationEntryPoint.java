@@ -18,7 +18,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
 
-        response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Unable to read JSON value");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unable to read JSON value");
     }
 }
 //

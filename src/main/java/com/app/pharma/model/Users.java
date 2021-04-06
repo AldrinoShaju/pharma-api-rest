@@ -73,7 +73,6 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-
     public String getAuth() {
         return auth;
     }
@@ -106,6 +105,10 @@ public class Users implements Serializable {
         this.dist = dist;
     }
 
+
+
+
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -115,7 +118,6 @@ public class Users implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Users)) {
             return false;
         }
@@ -125,6 +127,7 @@ public class Users implements Serializable {
         }
         return true;
     }
+
 
     @Override
     public String toString() {

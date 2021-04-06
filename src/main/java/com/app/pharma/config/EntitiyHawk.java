@@ -15,6 +15,7 @@ import java.util.Map;
  * @author 1460344
  */
 public class EntitiyHawk {
+
     public ResponseEntity genericSuccess() {
         Map map = new HashMap();
         map.put("status", true);

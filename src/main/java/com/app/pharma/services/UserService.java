@@ -12,6 +12,8 @@ import com.app.pharma.dto.RegisterUserDTO;
 import com.app.pharma.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +24,10 @@ import java.util.List;
 
 @Service
 public class UserService extends EntitiyHawk implements UserDetailsService {
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
     @Autowired
     private UserRepository repository;
 
@@ -56,18 +62,28 @@ public class UserService extends EntitiyHawk implements UserDetailsService {
 
     public ResponseEntity<String> loginUser(LoginDto lDto){
 
-        String name = lDto.getName();
-        Users search = repository.findByUserName(name);
-        //System.out.println("Password: "+search.getPassword());
-        //String pass = search.getPassword();
-        if(search==null || !search.getPassword().equalsIgnoreCase(lDto.getPassword())){
+//        String name = lDto.getName();
+//        Users search = repository.findByUserName(name);
+//        //System.out.println("Password: "+search.getPassword());
+//        //String pass = search.getPassword();
+//        if(search==null || !search.getPassword().equalsIgnoreCase(lDto.getPassword())){
+//            return genericError("Invalid Username or Password");
+//        }
+//        else{
+//            String token = jwtUtils.CreateJWTToken(search);
+//            return genericResponse(true, token, search.getAuth());
+//        }
+        Users search = repository.findByUserName(lDto.getName());
+        try{
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(lDto.getName(), lDto.getPassword())
+            );
+        }catch(Exception e){
             return genericError("Invalid Username or Password");
         }
-        else{
-            String token = jwtUtils.CreateJWTToken(search);
-            return genericResponse(true, token, search.getAuth());
-        }
 
+        String token = jwtUtils.CreateJWTToken(search);
+        return genericResponse(true, token, search.getAuth());
 
     }
 
