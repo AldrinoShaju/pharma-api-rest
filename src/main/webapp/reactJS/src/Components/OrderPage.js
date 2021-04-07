@@ -18,6 +18,7 @@ export class OrderPage extends Component {
       amount:"",
       perItem:"",
       product:[],
+      order:[],
       lastOrderQueue:""
     };
     // this.updateOrder = this.updateOrder.bind(this);
@@ -38,7 +39,9 @@ export class OrderPage extends Component {
 
     UserService.getOrderSize(this.props.token).then((response) => {
         console.log(response.data);
-        this.setState({lastOrderQueue:response.data.data})
+        this.setState({lastOrderQueue: response.data.data})
+        //this.setState({lastOrderQueue:this.state.order[1].orderQueue})
+        //console.log(this.state.lastOrderQueue)
         //this.setState({ items: response.data.data})
         //this.props.ordersDta(response.data.data)
     });

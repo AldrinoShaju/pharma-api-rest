@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Card, Form, Col, Row, Button } from "react-bootstrap";
+import { Card, Form, Col, Row, Button, DropdownButton, Dropdown } from "react-bootstrap";
 import UserService from './UserService';
 import { connect } from "react-redux";
 import { isCustomer, isDistributor, isLogin, register, ordersDta } from "../action";
@@ -13,21 +13,27 @@ export class EditOrder extends Component {
       minQty: "",
       tax: "",
       discount: "",
-      orderQty: ""
+      orderQty: "",
+      dist:"",
     };
+    
   }
+  
   componentDidMount(){
     UserService.getOrderDetails(this.props.token, this.props.customerID).then((response) => {
-        console.log(response.data);
+        if(response.data.status==false){
+          alert(`${response.data.data}`)
+        }else{
         this.setState({ 
           productCode: response.data.data.productCode,
           productName: response.data.data.productName,
           minQty:response.data.data.minQuantity,
           orderQty:response.data.data.orderQueue,
-          discount:response.data.data.netCost
+          discount:response.data.data.netCost,
+          dist:response.data.data.dist
         })
+      }
     });
-    //console.log(this.props);
   }
   updateOrder = (data) => {
     console.log(data.productName);
@@ -49,9 +55,9 @@ export class EditOrder extends Component {
       if(response.data.status===false){
         alert(`Updating Order Failed`);
       }else if(response.data.status===true){
+        alert(`${response.data.data}`)
         UserService.getOrders(this.props.token).then((response) => {
           console.log(response.data);
-          //this.setState({ items: response.data.data})
           this.props.ordersDta(response.data.data)
         });
       }
@@ -125,6 +131,22 @@ export class EditOrder extends Component {
                   value={this.state.minQty}
                   onChange={(e) => this.setState({ minQty: e.target.value })}
                 />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} controlId="formBasicquatity">
+              <Form.Label column sm={4}>
+                Distributer
+              </Form.Label>
+              <Col sm={5}>
+                <Form.Control
+                  type="text"
+                  placeholder="Distributer"
+                  value={this.state.dist}
+                  onChange={(e) => this.setState({ minQty: e.target.value })}
+                />
+                {/* <DropdownButton id="dropdown-item-button" title={this.state.dist}>
+                {distList}
+              </DropdownButton> */}
               </Col>
             </Form.Group>
             <Form.Group as={Row} controlId="formBasicEmail">

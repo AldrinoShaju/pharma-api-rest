@@ -5,7 +5,7 @@ import Header from "./Components/Header";
 import { createStore } from "redux";
 import reducer from "./reducer";
 import { Provider } from "react-redux";
-
+import './App.css';
 const store = createStore(reducer);
 
 const rootElement = document.getElementById("root");

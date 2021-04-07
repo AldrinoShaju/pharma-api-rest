@@ -54,6 +54,7 @@ class Home extends Component {
           <Card style={{ margin: ".4rem" }}>
             <Card.Body>
               <Col>
+                <img src={item.src} width="100px" height="100px"></img>
                 <Row>{item.productName}</Row>
                 <Row>Rs. {item.perItem}</Row>
               </Col>
@@ -64,9 +65,10 @@ class Home extends Component {
     });
     return (
       <div>
-        <Card style={{ margin: "auto", width: "90%", marginTop: "1rem" }}>
-          <Card.Title style={{ padding: "1rem" }}>
-            HomePage
+        <Card style={{ margin: "auto", width: "90%", marginTop: "0.5rem" }}>
+          <Card.Title style={{ padding: ".4rem" }}>
+            Welcome to Pharma Store
+            <p>Products: </p>
           </Card.Title>
           <Card.Body>
             <Container>

@@ -24,10 +24,11 @@ export class Delete extends Component {
     UserService.getDeleteCust(this.props.token, id).then((response) => {
       console.log(response.data);
       if(response.data.status===false){
-        alert(`Invalid ID. Check Again`);
+        alert(`${response.data.data}`);
       }else if(response.data.status===true){
+        alert(`${response.data.data}`);
         UserService.getUsers(this.props.token).then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
           //this.setState({ items: response.data.data})
           this.props.customersDta(response.data.data)
       });
@@ -37,10 +38,11 @@ export class Delete extends Component {
 
     else if(this.props.title==("Delete Order")){
       UserService.getDeleteOrder(this.props.token, id).then((response) => {
-        //console.log(response.data);
+        console.log(response.data);
         if(response.data.status===false){
-          alert(`Invalid ID. Check Again`);
+          alert(`${response.data.data}`);
         }else if(response.data.status===true){
+          alert(`${response.data.data}`);
           UserService.getOrders(this.props.token).then((response) => {
             console.log(response.data);
             //this.setState({ items: response.data.data})
@@ -53,8 +55,9 @@ export class Delete extends Component {
       UserService.getDistOrder(this.props.token, id).then((response) => {
         console.log(response.data);
         if(response.data.status===false){
-          alert(`Process Failed`);
+          alert(`${response.data.data}`);
         }else if(response.data.status===true){
+          alert(`${response.data.data}`);
           UserService.getOrders(this.props.token).then((response) => {
             console.log(response.data);
             //this.setState({ items: response.data.data})

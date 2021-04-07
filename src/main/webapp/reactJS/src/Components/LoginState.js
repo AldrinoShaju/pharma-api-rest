@@ -88,7 +88,7 @@ class LoginState extends Component {
           bg="light"
           text="secondary"
           border="dark"
-          style={{ margin: "2rem", padding: "0.5rem" }}
+          style={{ margin: "2rem", padding: "0.5rem"}}
         >
           <Card.Title>{this.props.authType}</Card.Title>
           <Card.Body>

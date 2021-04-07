@@ -40,6 +40,7 @@ class Header extends Component {
         </Navbar>
 
         <Image
+          // src="https://okcredit-blog-images-prod.storage.googleapis.com/2020/12/pharmacy5.jpg"
           src="https://indiaincgroup.com/wp-content/uploads/2020/07/Sun-Pharma-acquires-Canada%E2%80%99s-Aquinox-Pharmaceuticals-for-8.2mn.jpg"
           fluid
           style={{ width: "100%", height: "50vh" }}
