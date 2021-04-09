@@ -65,8 +65,8 @@ export class EditOrder extends Component {
   };
   render() {
     return (
-      <Card style={{ width: "90%", margin: "auto", marginTop: "1rem" }}>
-        <Card.Title style={{ padding: "1rem" }}>Edit The Order</Card.Title>
+      <Card border="light" style={{ width: "90%", margin: "auto", marginTop: "1rem", borderRadius:"1rem" }}>
+        <Card.Title style={{ padding: "1rem" }}><h3>Edit Order</h3></Card.Title>
         <Card.Body>
           <Form
             onSubmit={(e) => {
@@ -176,7 +176,7 @@ export class EditOrder extends Component {
               </Col>
             </Form.Group>
             <center>
-              <Button type="submit">Update</Button>
+              <Button type="submit" style={{backgroundColor:"#02b7c2", borderColor:"#02b7c2"}}>Update</Button>
             </center>
           </Form>
         </Card.Body>

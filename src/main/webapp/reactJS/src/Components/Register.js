@@ -67,10 +67,10 @@ class Register extends Component {
     });
     return (
       <Card
-        bg="light"
-        style={{ width: "90%", margin: "auto", marginTop: "1rem" }}
+      border="light"
+        style={{ width: "90%", margin: "auto", marginTop: "1rem", borderRadius:"1rem" }}
       >
-        <Card.Title style={{ padding: "1rem" }}>Register a User</Card.Title>
+        <Card.Title style={{ padding: "1rem" }}><h3><strong>User Registration</strong></h3></Card.Title>
         <Card.Body>
           <Form
             onSubmit={(e) => {
@@ -128,7 +128,7 @@ class Register extends Component {
                 Distributor Name
               </Form.Label>
               <Col sm={5}>
-              <DropdownButton id="dropdown-item-button" title={this.state.distributorName!==""?this.state.distributorName:"Select Distributer"}>
+              <DropdownButton  id="dropdown-item-button" title={this.state.distributorName!==""?this.state.distributorName:"Select Distributer"}>
                 {distList}
               </DropdownButton>
                 {/* <Form.Control
@@ -195,7 +195,7 @@ class Register extends Component {
               >
                 <u>Already a user SignIn</u>
               </Button>
-              <Button type="submit">Register</Button>
+              <Button type="submit" style={{ backgroundColor:"#02b7c2", borderColor:"#02b7c2"}}>Register</Button>
             </center>
           </Form>
         </Card.Body>

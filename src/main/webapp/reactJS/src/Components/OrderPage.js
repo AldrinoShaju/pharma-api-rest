@@ -70,7 +70,7 @@ export class OrderPage extends Component {
           productCode:data.productCode,
           productName:data.productName,
           netCost:data.orderQty,
-          orderQueue:data.lastOrderQueue +1
+          orderQueue:data.lastOrderQueue +2
         };
         UserService.postOrder(this.props.token, payload).then((response) => {
           console.log(response.data);
@@ -92,8 +92,8 @@ export class OrderPage extends Component {
   });
   
     return (
-      <Card style={{ width: "90%", margin: "auto", marginTop: "1rem" }}>
-        <Card.Title style={{ padding: "1rem" }}>Place an Order</Card.Title>
+      <Card border="light" style={{ width: "90%", margin: "auto", marginTop: "1rem", borderRadius:"1rem" }}>
+        <Card.Title style={{ padding: "1rem" }}><h3>Place an Order</h3></Card.Title>
         <Card.Body>
           <Form
             onSubmit={(e) => {
@@ -207,7 +207,7 @@ export class OrderPage extends Component {
               </Col>
             </Form.Group>
             <center>
-              <Button type="submit">Place Order</Button>
+              <Button type="submit"  style={{ backgroundColor:"#02b7c2", borderColor:"#02b7c2"}}>Place Order</Button>
             </center>
           </Form>
         </Card.Body>

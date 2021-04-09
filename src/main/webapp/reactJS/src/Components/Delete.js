@@ -57,7 +57,7 @@ export class Delete extends Component {
         if(response.data.status===false){
           alert(`${response.data.data}`);
         }else if(response.data.status===true){
-          alert(`${response.data.data}`);
+          alert(`Order Accepted`);
           UserService.getOrders(this.props.token).then((response) => {
             console.log(response.data);
             //this.setState({ items: response.data.data})
@@ -70,14 +70,16 @@ export class Delete extends Component {
   render() {
     return (
       <Card
+        border="light"
         style={{
           width: "80%",
           margin: "auto",
           padding: "1rem",
-          marginTop: "1.5rem"
+          marginTop: "1.5rem",
+          borderRadius:"1rem"
         }}
       >
-        <Card.Title>{this.props.title}</Card.Title>
+        <Card.Title><h3>{this.props.title}</h3></Card.Title>
         <Card.Body>
           <Form
             onReset={(e) => {
@@ -99,15 +101,15 @@ export class Delete extends Component {
               />
             </Form.Group>
             <center>
-              <Button varient="warning" type="submit">
+              <Button varient="warning" type="submit" style={{backgroundColor:"#02b7c2", borderColor:"#02b7c2"}}>
                 {this.props.authType==="Distributor"?"Accept":"Delete"}
               </Button>
               <Button
                 varient="warning"
                 type="reset"
-                style={{ marginLeft: ".5rem" }}
+                style={{ marginLeft: ".5rem",backgroundColor:"#ffffff ", borderColor:"#02b7c2"  }}
               >
-                Clear
+                <span className="clearbtn">Clear</span>
               </Button>
             </center>
           </Form>

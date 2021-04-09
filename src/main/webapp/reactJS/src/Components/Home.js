@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { Card, Row, Col, Container, CardDeck} from "react-bootstrap";
 import axios from 'axios';
+import homeimg from '../media/blo4.jpg';
+import { BiBorderRadius } from "react-icons/bi";
 
 class Home extends Component {
   constructor() {
@@ -51,12 +53,13 @@ class Home extends Component {
     const productItem = this.state.productItems.map((item) => {
       return (
         <CardDeck as={Col} sm={4} md={3} key={item.productCode}>
-          <Card style={{ margin: ".4rem" }}>
+          <Card border="light" style={{ margin: ".4rem" , borderRadius:"1rem"}}>
             <Card.Body>
+              
               <Col>
                 <img src={item.src} width="100px" height="100px"></img>
-                <Row>{item.productName}</Row>
-                <Row>Rs. {item.perItem}</Row>
+                <Row><h5>{item.productName}</h5></Row>
+                <Row><p className="itemprice">Rs. {item.perItem}</p></Row>
               </Col>
             </Card.Body>
           </Card>
@@ -64,14 +67,43 @@ class Home extends Component {
       );
     });
     return (
-      <div>
-        <Card style={{ margin: "auto", width: "90%", marginTop: "0.5rem" }}>
-          <Card.Title style={{ padding: ".4rem" }}>
-            Welcome to Pharma Store
-            <p>Products: </p>
-          </Card.Title>
-          <Card.Body>
+      <div className="homebg">
+        
+        <Card className="homebg" border="light" style={{ margin: "auto", width: "90%", marginTop: "0.5rem"}}>
+          {/* <Card.Title style={{ padding: ".4rem" }}> */}
+            {/* <Card className="homebg" border="light" style={{ margin: ".4rem" , borderRadius:"1rem", backgroundColor:"#f6f6f7"}}> */}
             <Container>
+            <Card border="light" style={{ margin: ".4rem" , borderRadius:"1rem"}}>
+            <Card.Body>
+              <div className="hero-box">
+            <div className='leftside'>
+              <div>
+                <h1 className='heading'>A Better <br /> Pharmacy For <br /> Everyone</h1>
+                <br />
+                <p>Your digital pharmacy like no other bringing health <br /> and wellness
+                to your doorstep
+                </p>
+                <br />
+              </div>
+            </div>
+              <div className='rightside'>
+                <div className='img-div'>
+                  <img className="imgaq" src={homeimg} alt="" width="350" height="300" />
+                
+                </div>
+              </div>
+          </div>
+              </Card.Body>
+              </Card>
+            </Container>
+              
+            
+          
+
+          {/* </Card.Title> */}
+          <Card.Body>
+            <Container >
+              <h4 className="productName">Products Available</h4>
               <Row>{productItem}</Row>
             </Container>
           </Card.Body>

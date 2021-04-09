@@ -71,6 +71,24 @@ export class OrderAdmin extends Component {
     return (
       <>
         <Router>
+        <Switch>
+            <Route
+              exact
+              path="/delete"
+              render={() => <Delete authType="Administrator"  title="Delete Order" />}
+            />
+            <Route
+              exact
+              path="/editOrder"
+              render={() =>
+                this.state.customerID === "" ? (
+                  alert('enter the CustomerID')
+                ) : (
+                  <EditOrder customerID={this.state.customerID} />
+                )
+              }
+            />
+          </Switch>
           <Row style={{ width: "97%", margin: "auto" }}>
             <Link to="/delete">
               <Row style={{ marginLeft: "1rem", marginTop: "1.5rem" }}>
@@ -129,7 +147,7 @@ export class OrderAdmin extends Component {
             </thead>
             <tbody>{itemList}</tbody>
           </Table>
-          <Switch>
+          {/* <Switch>
             <Route
               exact
               path="/delete"
@@ -146,7 +164,7 @@ export class OrderAdmin extends Component {
                 )
               }
             />
-          </Switch>
+          </Switch> */}
         </Router>
       </>
     );

@@ -83,14 +83,17 @@ class LoginState extends Component {
   };
   render() {
     return (
-      <>
+      <div className="homebg">
+      <div className="login-state">
+        
         <Card
-          bg="light"
-          text="secondary"
-          border="dark"
-          style={{ margin: "2rem", padding: "0.5rem"}}
+          // bg="light"
+          // text="secondary"
+          // border="dark"
+          border="light"
+          style={{ padding: "1rem", borderRadius:"1rem"}}
         >
-          <Card.Title>{this.props.authType}</Card.Title>
+          <Card.Title><h3><strong>Login as {this.props.authType}</strong></h3></Card.Title>
           <Card.Body>
             <Form
               onReset={(e) => {
@@ -122,35 +125,37 @@ class LoginState extends Component {
                   onChange={(e) => this.setState({ password: e.target.value })}
                 />
               </Form.Group>
-              {this.props.authType === "Customer" ? (
-                <Button
-                  onClick={() => {
-                    this.props.toRegister();
-                  }}
-                  style={{ marginLeft: ".5rem" }}
-                  variant="primary"
-                >
-                  New User
-                </Button>
-              ) : null}
+              
               <Button
-                style={{ marginLeft: ".5rem" }}
+                style={{ marginLeft: ".5rem", backgroundColor:"#02b7c2", borderColor:"#02b7c2"}}
                 variant="secondary"
                 type="submit"
               >
                 Submit
               </Button>
               <Button
-                style={{ marginLeft: ".5rem" }}
+                style={{ marginLeft: ".5rem", backgroundColor:"#ffffff ", borderColor:"#02b7c2" }}
                 variant="secondary"
                 type="reset"
-              >
-                Clear
+              ><span className="clearbtn">Clear</span>
+                
               </Button>
+              {this.props.authType === "Customer" ? (
+                <Button
+                  onClick={() => {
+                    this.props.toRegister();
+                  }}
+                  style={{ marginLeft: ".5rem", backgroundColor:"#ffffff ", borderColor:"#02b7c2" }}
+                  variant="primary"
+                >
+                  <span className="clearbtn">New User</span>
+                </Button>
+              ) : null}
             </Form>
           </Card.Body>
         </Card>
-      </>
+      </div>
+      </div>
     );
   }
 }

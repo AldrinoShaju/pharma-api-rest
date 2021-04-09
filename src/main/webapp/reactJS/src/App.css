@@ -1,3 +1,24 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100vh;
+  font-family: "Open Sans", serif;
+  background-color: #f6f6f7;
+}
+h5 {
+  text-align: center;
+}
+.imgaq {
+  border-radius: 2rem;
+}
+
 .App {
   text-align: center;
 }
@@ -45,7 +66,7 @@
 }
 
 .image-about {
-  border-radius: 3rem;
+  border-radius: 1.5rem;
 }
 
 .leftside {
@@ -57,9 +78,103 @@
   justify-content: flex-start;
   align-items: center;
   margin-left: 15px;
-  background-color: #f3fdfb;
+  background-color: #fdfdfd;
 }
 
 .rightside {
   flex: 1 1;
+}
+
+.text {
+  margin-right: 2rem;
+}
+
+.text-contact {
+  margin-right: 10rem;
+}
+
+.navStyle {
+  background-color: #02b7c2;
+  color: white !important;
+}
+
+.hero-box {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+}
+
+.hero-box .leftside {
+  flex: 1 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 85px;
+}
+
+h1.heading {
+  color: #02b7c2;
+  font-size: 42px;
+  letter-spacing: 0.1em;
+}
+
+p {
+  font-size: 12px;
+  color: #94908f;
+}
+
+.productName {
+  color: #02b7c2;
+}
+
+.itemprice {
+  text-align: center;
+  font-size: medium;
+  color: #282c34;
+}
+
+.homebg {
+  /* background-image: linear-gradient(to top, #ceffe9, rgb(255, 255, 255)); */
+  background-color: #f6f6f7;
+}
+
+.homebg1 {
+  background-image: linear-gradient(to top, #dffff0, rgb(234, 255, 250));
+}
+
+.login-state {
+  width: 100%;
+  max-width: 600px;
+  padding: 15px;
+  margin: auto;
+  padding-top: 10rem;
+  padding-bottom: 20rem;
+  height: 100%;
+}
+
+.clearbtn {
+  color: #02b7c2;
+}
+
+#del {
+  color: red;
+  align-items: flex-start;
+}
+
+th {
+  background-color: #12bcc5;
+  color: white;
+}
+
+/* #dropdown-item-button {
+  background-color: "#02b7c2" !important;
+  border-color: "#02b7c2" !important;
+} */
+
+.btn-tri {
+  background-color: #02b7c2 !important;
+  border-color: #02b7c2 !important;
 }

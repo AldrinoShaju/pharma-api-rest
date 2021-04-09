@@ -75,8 +75,9 @@ class DistributorPage extends Component {
         <Router>
           <Col sm={3} style={{ margin: ".5rem" }}>
             <Link to="/dist/order">Click to Select Your Order </Link>
-
+            <br/>
             <Button
+              style={{ backgroundColor:"#02b7c2", borderColor:"#02b7c2"}}
               type="submit"
               onClick={() => {
                 console.log(this.props.token);
@@ -113,6 +114,7 @@ class DistributorPage extends Component {
               path="/dist/order"
               render={() => (
                 <Delete
+                  
                   authType="Distributor"
                   item="Order"
                   title="Order Accepting"

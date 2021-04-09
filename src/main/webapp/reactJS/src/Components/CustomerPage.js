@@ -14,8 +14,8 @@ class CustomerPage extends Component {
     return (
       <Router>
         <Card
-          bg="light"
-          style={{ width: "80%", margin: "auto", marginTop: "2rem" }}
+          border="light"
+          style={{ width: "80%", margin: "auto", marginTop: "2rem", borderRadius:"1rem" }}
         >
           <Card.Body>
             <Form
@@ -24,13 +24,14 @@ class CustomerPage extends Component {
                 this.submit();
               }}
             >
-              <Card.Title>Welcome </Card.Title>
+              <Card.Title><h3><strong>Welcome Customer</strong></h3></Card.Title>
               <div style={{ paddingLeft: "1rem" }}>
                 <Row>
                   <Link to="/cust/order">Click to place an order</Link>
                 </Row>
                 <Row>
                   <Button
+                    style={{ backgroundColor:"#02b7c2", borderColor:"#02b7c2"}}
                     onClick={() => {
                       this.props.isCustomer();
                     }}

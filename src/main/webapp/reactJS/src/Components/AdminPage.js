@@ -30,9 +30,10 @@ class AdminPage extends Component {
   render() {
     return (
       <Router>
+        <div className="homebg">
         <Card
-          bg="light"
-          style={{ width: "80%", margin: "auto", marginTop: "2rem" }}
+          border="light"
+          style={{ width: "80%", margin: "auto", marginTop: "2rem", borderRadius:"1rem" }}
         >
           <Card.Body>
             <Form
@@ -41,7 +42,7 @@ class AdminPage extends Component {
                 this.submit();
               }}
             >
-              <Card.Title>Welcome Admin</Card.Title>
+              <Card.Title><h3><strong>Welcome Administrator</strong></h3></Card.Title>
               <div style={{ paddingLeft: "1rem" }}>
                 <Row>
                   <Link to="/admin/customeradmin">
@@ -53,6 +54,7 @@ class AdminPage extends Component {
                 </Row>
                 <Row>
                   <Button
+                    style={{ backgroundColor:"#02b7c2", borderColor:"#02b7c2"}}
                     type="submit"
                     onClick={() => {
                       this.props.isLogin();
@@ -69,6 +71,7 @@ class AdminPage extends Component {
           <Route exact path="/admin/customeradmin" component={CustomerAdmin} />
           <Route exact path="/admin/orderadmin" component={OrderAdmin} />
         </Switch>
+        </div>
       </Router>
     );
   }

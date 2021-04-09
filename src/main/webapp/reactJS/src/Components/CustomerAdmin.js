@@ -64,9 +64,9 @@ export class CustomerAdmin extends Component {
       <>
         <Router>
           <Link to="/delete">
-            <Row style={{ width: "95%", margin: "auto" }}>
-              <MdDelete size="1.6rem" color="#ff1230" />
-              <h5>Delete</h5>
+            <Row style={{ width: "95%", margin: "auto"}}>
+              <MdDelete size="1.6rem" color="#ff1230"/>
+              <h5 id="del">Delete</h5>
             </Row>
           </Link>
           <Table
@@ -74,7 +74,7 @@ export class CustomerAdmin extends Component {
             bordered
             hover
             size="md"
-            style={{ width: "95%", margin: "auto" }}
+            style={{ width: "95%", margin: "auto", backgroundColor:"white", borderRadius:"1rem", borderColor:"#f6f6f7" }}
           >
             <thead>
               <tr>
@@ -82,7 +82,7 @@ export class CustomerAdmin extends Component {
                 <th>Username</th>
                 <th>Password</th>
                 <th>Address</th>
-                <th>phone</th>
+                <th>Phone</th>
                 <th>Email</th>
               </tr>
             </thead>
